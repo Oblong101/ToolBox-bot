@@ -18,6 +18,7 @@ class Ping(commands.Cog):
         except Exception as e:
             embed = disnake.Embed(description="An error has occurred.")
             await inter.response.send_message(embed=embed)
+            return e
 
 
 def setup(bot):
