@@ -4,9 +4,7 @@ from config import BOT_TOKEN
 
 
 def main():
-    intents = disnake.Intents.all()
-
-    bot = commands.InteractionBot(intents=intents)
+    bot = commands.InteractionBot(intents=disnake.Intents.all())
 
     """
     Every cog should have its path added to this list relative to this file
