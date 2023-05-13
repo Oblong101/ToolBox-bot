@@ -4,14 +4,7 @@ from config import BOT_TOKEN
 
 
 def main():
-    intents = disnake.Intents.default()
-    intents.guild_messages = True
-    intents.members = True
-    intents.message_content = True
-    intents.moderation = True
-    intents.bans = True
-    intents.guilds = True
-    intents.guild_reactions = True
+    intents = disnake.Intents.all()
 
     bot = commands.InteractionBot(intents=intents)
 
@@ -19,11 +12,10 @@ def main():
     Every cog should have its path added to this list relative to this file
     Each item should be separated by full stops, eg. 'cogs.tools.x'
     """
-    cog_list = []
+    cog_list = ["cogs.events.ready"]
 
-    @bot.event
-    async def on_ready():
-        print("Client ready!")
+    for cog in cog_list:
+        bot.load_extension(cog)
 
     bot.run(BOT_TOKEN)
 
