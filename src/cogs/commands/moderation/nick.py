@@ -21,15 +21,27 @@ class Nick(commands.Cog):
                 await user.edit(nick=None) and await inter.response.send_message(
                     embed=embed
                 )
+            elif user.guild_permissions.administrator == True:
+                embed = disnake.Embed(
+                    title="Nickname",
+                    description=f"{user._user} has admin permissions. I cannot change their name.",
+                )
+                await inter.response.send_message(embed=embed)
+            elif user._user == self.bot.user:
+                embed = disnake.Embed(
+                    title="Nickname", description="You must change my nickname manually"
+                )
+                await inter.response.send_message(embed=embed)
             elif nick == user.display_name:
                 embed = disnake.Embed(
                     title="Nickname",
                     description="Couldn't update nickname. That is already their name.",
                 )
+                await inter.response.send_message(embed=embed)
             else:
                 embed = disnake.Embed(
                     title="Nickname",
-                    description=f"{user.name}'s nickname has been set to {nick}.",
+                    description=f"{user._user}'s nickname has been set to {nick}.",
                 )
                 await user.edit(nick=nick)
                 await inter.response.send_message(embed=embed)
@@ -37,6 +49,7 @@ class Nick(commands.Cog):
             embed = disnake.Embed(description="An error has occurred.")
             await inter.response.send_message(embed)
             return e
+        await inter.response.send_message(f"{user.display_name} | {nick}")
 
 
 def setup(bot):
