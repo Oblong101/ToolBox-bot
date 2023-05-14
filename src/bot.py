@@ -12,6 +12,7 @@ def main():
             "cogs.events.ready",
             "cogs.commands.tools.ping",
             "cogs.commands.moderation.nick",
+            "cogs.commands.moderation.timeout",
         ]
         for cog in cog_list:
             bot.load_extension(cog)
