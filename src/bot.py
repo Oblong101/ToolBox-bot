@@ -5,7 +5,7 @@ from config import BOT_TOKEN
 
 
 def main():
-    bot = commands.InteractionBot(intents=disnake.Intents.all())
+    bot = commands.Bot(command_prefix="%", intents=disnake.Intents.all())
 
     def load_cogs():
         cog_list = [
@@ -13,6 +13,7 @@ def main():
             "cogs.commands.tools.ping",
             "cogs.commands.moderation.nick",
             "cogs.commands.moderation.timeout",
+            "cogs.commands.moderation.slowmode",
         ]
         for cog in cog_list:
             bot.load_extension(cog)

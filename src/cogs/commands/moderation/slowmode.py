@@ -1,5 +1,4 @@
 import disnake
-from disnake import Option
 from disnake.ext import commands
 
 
@@ -11,14 +10,13 @@ class Slowmode(commands.Cog):
         name="slowmode", description="Change the message cooldown in a channel."
     )
     @commands.default_member_permissions(manage_messages=True)
-    @Option(
-        name="duration",
-        description="How long someone has to wait to send another message (seconds)",
-        type=disnake.OptionType.integer,
-        required=True,
-    )
-    async def slowmode(self, inter: disnake.AppCmdInter, duration):
-        await inter.response.send_message(f"{duration} is pretty long")
+    async def slowmode(
+        self,
+        inter: disnake.AppCmdInter,
+        channel: disnake.TextChannel,
+        duration: int,
+    ):
+        await inter.response.send_message(f"{duration} is pretty long, {channel.id}")
 
 
 def setup(bot):
