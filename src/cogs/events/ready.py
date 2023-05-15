@@ -1,6 +1,7 @@
 import disnake
 from disnake.ext import commands
 from datetime import datetime
+import os
 
 
 class OnReady(commands.Cog):
@@ -9,15 +10,19 @@ class OnReady(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(
-            f"{self.bot.user} ready on {datetime.utcnow().strftime('%D at %H:%M')} (UTC)"
-        )
-        await self.bot.change_presence(
-            activity=disnake.Activity(
-                type=disnake.ActivityType.playing,
-                name="github.com/Oblong101/ToolBox-Bot",
+        try:
+            print(
+                f"{self.bot.user} ready on {datetime.utcnow().strftime('%D at %H:%M')} (UTC)"
             )
-        )
+            await self.bot.change_presence(
+                activity=disnake.Activity(
+                    type=disnake.ActivityType.playing,
+                    name="github.com/Oblong101/ToolBox-Bot",
+                )
+            )
+        except Exception as e:
+            print(f"An error has occurred:\n{e}")
+            return e
 
 
 def setup(bot):

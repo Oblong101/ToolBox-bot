@@ -11,8 +11,8 @@ class Nick(commands.Cog):
     async def nick(
         self, inter: disnake.AppCmdInter, user: disnake.Member, nick: str = None
     ):
+        embed = disnake.Embed(title="Nickname")
         try:
-            embed = disnake.Embed(title="Nickname")
             if nick == None:
                 embed.description = f"{user.name}'s nickname has been reset."
                 await user.edit(nick=None)
@@ -35,7 +35,7 @@ class Nick(commands.Cog):
                 await user.edit(nick=nick)
                 await inter.response.send_message(embed=embed)
         except Exception as e:
-            embed = disnake.Embed(description="An error has occurred.")
+            embed.description = "An error has occurred."
             await inter.response.send_message(embed)
             return e
 

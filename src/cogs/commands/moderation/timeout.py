@@ -17,8 +17,8 @@ class Timeout(commands.Cog):
         duration: int,
         reason: str = "Reason not specified",
     ):
+        embed = disnake.Embed(title="Timeout")
         try:
-            embed = disnake.Embed(title="Timeout")
             if user.id == inter.user.id:
                 embed.description = "You cannot mute yourself"
                 await inter.response.send_message(embed=embed)
