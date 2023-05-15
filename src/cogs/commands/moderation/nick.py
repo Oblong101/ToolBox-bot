@@ -12,39 +12,32 @@ class Nick(commands.Cog):
         self, inter: disnake.AppCmdInter, user: disnake.Member, nick: str = None
     ):
         try:
+            embed = disnake.Embed(title="Nickname")
             if nick == None:
-                embed = disnake.Embed(
-                    title="Nickname",
-                    description=f"{user.name}'s nickname has been reset.",
-                )
+                embed.description = f"{user.name}'s nickname has been reset."
                 await user.edit(nick=None)
+                await inter.response.send_message(embed=embed)
             elif user.guild_permissions.administrator == True:
-                embed = disnake.Embed(
-                    title="Nickname",
-                    description=f"{user._user} has admin permissions. I cannot change their name.",
+                embed.description = (
+                    f"{user._user} has admin permissions. I cannot change their name."
                 )
+                await inter.response.send_message(embed=embed)
             elif user._user == self.bot.user:
-                embed = disnake.Embed(
-                    title="Nickname",
-                    description="You must change my nickname manually.",
-                )
+                embed.description = "You must change my nickname manually."
+                await inter.response.send_message(embed=embed)
             elif nick == user.display_name:
-                embed = disnake.Embed(
-                    title="Nickname",
-                    description="Couldn't update nickname. That is already their name.",
+                embed.description = (
+                    "Couldn't update nickname. That is already their name."
                 )
+                await inter.response.send_message(embed=embed)
             else:
-                embed = disnake.Embed(
-                    title="Nickname",
-                    description=f"{user._user}'s nickname has been set to {nick}.",
-                )
+                embed.description = f"{user._user}'s nickname has been set to {nick}."
                 await user.edit(nick=nick)
+                await inter.response.send_message(embed=embed)
         except Exception as e:
             embed = disnake.Embed(description="An error has occurred.")
             await inter.response.send_message(embed)
             return e
-        finally:
-            await inter.response.send_message(embed=embed)
 
 
 def setup(bot):

@@ -16,7 +16,13 @@ class Slowmode(commands.Cog):
         channel: disnake.TextChannel,
         duration: int,
     ):
-        await inter.response.send_message(f"{duration} is pretty long, {channel.id}")
+        try:
+            channel.edit(slowmode_delay=duration)
+            await inter.response.send_message(
+                f"{duration} is pretty long, {channel.id}"
+            )
+        except Exception as e:
+            pass
 
 
 def setup(bot):
