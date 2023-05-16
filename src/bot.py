@@ -16,6 +16,8 @@ def main():
             "cogs.commands.moderation.nick",
             "cogs.commands.moderation.timeout",
             "cogs.commands.moderation.slowmode",
+            "cogs.commands.moderation.ban",
+            "cogs.commands.moderation.kick",
         ]
         for cog in cog_list:
             bot.load_extension(cog)
