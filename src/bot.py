@@ -1,28 +1,39 @@
 import disnake
+import os
 from disnake.ext import commands
 from config import BOT_TOKEN
 
 
-def main():
-    bot = commands.Bot(command_prefix="%", intents=disnake.Intents.all())
-
-    def load_cogs():
-        cog_list = [
-            "cogs.events.ready",
-            "cogs.commands.tools.ping",
-            "cogs.commands.moderation.nick",
-            "cogs.commands.moderation.timeout",
-            "cogs.commands.moderation.slowmode",
-            "cogs.commands.moderation.ban",
-            "cogs.commands.moderation.kick",
-        ]
-        for cog in cog_list:
-            bot.load_extension(cog)
-
-    load_cogs()
-
-    bot.run(BOT_TOKEN)
+class Bot(commands.Bot):
+    def __init__(self):
+        super().__init__(command_prefix="%", intents=disnake.Intents.all())
 
 
-if __name__ == "__main__":
-    main()
+bot = Bot()
+
+print("EVENTS")
+for f in os.listdir("./src/cogs/events"):
+    if f.endswith(".py"):
+        try:
+            bot.load_extension(f"cogs.events.{f[:-3]}")
+            print(f"Cog {f[:-3]} loaded")
+        except Exception as e:
+            print(
+                f"An error has occurred while loading events: {e} => encountered in {f}"
+            )
+print("- - - - - - - -")
+
+print("COMMANDS")
+for f in os.listdir("./src/cogs/commands"):
+    if f.endswith(".py"):
+        try:
+            bot.load_extension(f"cogs.commands.{f[:-3]}")
+            print(f"Cog {f[:-3]} loaded")
+        except Exception as e:
+            print(
+                f"An error has occurred while loading events: {e} => encountered in {f}"
+            )
+print("- - - - - - - -")
+
+
+bot.run(BOT_TOKEN)

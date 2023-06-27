@@ -15,9 +15,19 @@ class Timeout(commands.Cog):
         inter: disnake.AppCmdInter,
         user: disnake.Member,
         duration: int,
+        unit: str = "m",
         reason: str = "Reason not specified",
     ):
+        unit = unit[0]
+        time = duration
         embed = disnake.Embed(title="Timeout")
+        match unit.lower():
+            case "m":
+                duration *= 60
+            case "h":
+                duration *= 3600
+            case "d":
+                duration *= 86400
         try:
             if user.id == inter.user.id:
                 embed.description = "You cannot mute yourself"
@@ -43,8 +53,18 @@ class Timeout(commands.Cog):
                     ) and await inter.response.send_message(embed=embed)
             else:
                 if user.current_timeout == None:
+                    if unit.lower() == "m":
+                        if time == 1:
+                            unit = "minute"
+                        else:
+                            unit = "minutes"
+                    elif unit.lower() == "h":
+                        if time == 1:
+                            unit = "hour"
+                        else:
+                            unit = "hours"
                     embed.description = (
-                        f"{user._user} has been timed out for {duration}."
+                        f"{user._user} has been timed out for {time} {unit}."
                     )
                     embed.add_field(name="Reason", value=reason)
                     await user.timeout(
