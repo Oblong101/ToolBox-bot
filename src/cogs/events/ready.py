@@ -1,7 +1,7 @@
 import disnake
 from disnake.ext import commands
 from datetime import datetime
-import os
+from termcolor import colored
 
 
 class OnReady(commands.Cog):
@@ -21,7 +21,7 @@ class OnReady(commands.Cog):
                 )
             )
         except Exception as e:
-            print(f"An error has occurred:\n{e}")
+            print(colored(f"An error has occurred:\n{e}", "red", "on_black", ["bold"]))
             return e
 
 

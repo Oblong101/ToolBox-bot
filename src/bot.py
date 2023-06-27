@@ -1,7 +1,7 @@
-import disnake
-import os
+import disnake, os
 from disnake.ext import commands
 from config import BOT_TOKEN
+from termcolor import colored
 
 
 class Bot(commands.Bot):
@@ -11,7 +11,7 @@ class Bot(commands.Bot):
 
 bot = Bot()
 
-print("EVENTS")
+print(colored("EVENTS", "green", "on_black", ["bold", "underline"]))
 for f in os.listdir("./src/cogs/events"):
     if f.endswith(".py"):
         try:
@@ -21,9 +21,10 @@ for f in os.listdir("./src/cogs/events"):
             print(
                 f"An error has occurred while loading events: {e} => encountered in {f}"
             )
-print("- - - - - - - -")
+print(colored("----------", "yellow", None, ["bold"]))
 
-print("COMMANDS")
+
+print(colored("COMMANDS", "green", "on_black", ["bold", "underline"]))
 for f in os.listdir("./src/cogs/commands"):
     if f.endswith(".py"):
         try:
@@ -33,7 +34,7 @@ for f in os.listdir("./src/cogs/commands"):
             print(
                 f"An error has occurred while loading events: {e} => encountered in {f}"
             )
-print("- - - - - - - -")
+print(colored("----------", "yellow", None, ["bold"]))
 
 
 bot.run(BOT_TOKEN)
