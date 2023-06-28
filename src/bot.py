@@ -11,7 +11,7 @@ class Bot(commands.Bot):
 
 bot = Bot()
 
-print(colored("EVENTS", "green", "on_black", ["bold", "underline"]))
+print(colored("EVENTS", "green", None, ["bold", "underline"]))
 for f in os.listdir("./src/cogs/events"):
     if f.endswith(".py"):
         try:
@@ -24,7 +24,7 @@ for f in os.listdir("./src/cogs/events"):
 print(colored("----------", "yellow", None, ["bold"]))
 
 
-print(colored("COMMANDS", "green", "on_black", ["bold", "underline"]))
+print(colored("COMMANDS", "green", None, ["bold", "underline"]))
 for f in os.listdir("./src/cogs/commands"):
     if f.endswith(".py"):
         try:
