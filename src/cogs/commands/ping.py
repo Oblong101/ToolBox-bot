@@ -1,13 +1,25 @@
-import disnake
+import disnake, sys
 from disnake.ext import commands
+
+sys.path.append("../../Classes")
+from Classes.classes import ErrorEmbed
+
+error_embed = ErrorEmbed()
 
 
 class Ping(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.slash_command(name="ping", description="Return bot ping.")
+    @commands.slash_command(name="ping")
     async def ping(self, inter: disnake.AppCmdInter):
+        """
+        Returns the bot's current ping.
+
+        Parameters
+        ----------
+        inter: Discord Application Interaction
+        """
         try:
             bot_ping = self.bot.latency
             embed = disnake.Embed(
@@ -16,8 +28,8 @@ class Ping(commands.Cog):
             await inter.response.send_message(embed=embed)
             return bot_ping
         except Exception as e:
-            embed = disnake.Embed(description="An error has occurred.")
-            await inter.response.send_message(embed=embed)
+            error_embed.add_error(error=e, embed=error_embed)
+            await inter.response.send_message(embed=error_embed)
             return e
 
 

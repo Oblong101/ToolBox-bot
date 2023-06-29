@@ -6,11 +6,20 @@ class Nick(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.slash_command(name="nick", description="Apply a nickname to a user.")
+    @commands.slash_command(name="nick")
     @commands.default_member_permissions(manage_nicknames=True)
     async def nick(
         self, inter: disnake.AppCmdInter, user: disnake.Member, nick: str = None
     ):
+        """
+        Apply a nickname to a user.
+
+        Parameters
+        ----------
+        inter: Discord Application Interaction.
+        user: The user who's nickname should be changed.
+        nick: The user's new nickname.
+        """
         embed = disnake.Embed(title="Nickname")
         try:
             if nick == None:
